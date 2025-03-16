@@ -9,8 +9,7 @@
 
 本项目默认使用**重庆大学（CQU）的中文校徽**作为示例，展示了傅里叶变换将静态图像转换为动态绘制过程的能力。
 
-![CQU Logo 演示](./demo/cqu_logo_demo.gif)
-
+![CQU Logo 演示](demo/FourierDraw.gif)
 ## ✨ 特性
 
 - 🖼️ **SVG 转换**：将任意 SVG 图像转换为傅里叶级数表示
