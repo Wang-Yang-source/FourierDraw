@@ -1,6 +1,5 @@
 # 🎨 傅里叶级数绘图工具 (Fourier Series Drawing)
 
-![GitHub stars](https://img.shields.io/github/stars/yourusername/Fourier_series_drawing?style=social)
 ![Python Version](https://img.shields.io/badge/python-3.6+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
@@ -8,12 +7,14 @@
 
 这个项目利用**傅里叶级数**（Fourier Series）将任意 SVG 图像转换为由旋转向量绘制的动画。通过数学的魔力，我们可以用简谐运动的叠加来绘制复杂的图形，展示数学之美！✨
 
+本项目默认使用**重庆大学（CQU）的中文校徽**作为示例，展示了傅里叶变换将静态图像转换为动态绘制过程的能力。
+
 ![CQU Logo 演示](./demo/cqu_logo_demo.gif)
 
 ## ✨ 特性
 
 - 🖼️ **SVG 转换**：将任意 SVG 图像转换为傅里叶级数表示
-- 🚀 **多线程计算**：利用并行计算加速系数计算过程
+- 🚀 **多进程计算**：利用并行计算加速系数计算过程
 - 💾 **智能缓存**：自动缓存计算结果，避免重复计算
 - 🎮 **实时可视化**：使用 Pygame 实现动态绘制过程
 - 🔄 **平滑插值**：对点进行预处理，使轨迹更加平滑
@@ -22,54 +23,41 @@
 ## 🛠️ 安装
 
 ```bash
-# 克隆仓库
-git clone https://github.com/yourusername/Fourier_series_drawing.git
-cd Fourier_series_drawing
-
 # 安装依赖
 pip install -r requirements.txt
 ```
 
-## 📋 依赖项
-
-- Python 3.6+
-- NumPy
-- Pandas
-- Matplotlib
-- Pygame
-- SciPy
-- svgpathtools
-- alive-progress
-
 ## 🚀 使用方法
 
-1. 将你的 SVG 文件放入 `svg` 目录
-2. 修改 `复数域.py` 中的参数：
-
-```python
-if __name__ == '__main__':
-    # 指定 SVG 文件名（不含扩展名）和点的数量
-    svg = Svg2points('cqu_logo', 500, 1, show=False)
-    
-    # 设置傅里叶级数参数
-    coeff = CalCoeff(svg, 800, vec_num=500, int_num=2000, use_cache=True, workers=None)
-    
-    # 设置可视化参数
-    Visualization(20, coefficient=coeff, times=2)
-```
-
-3. 运行程序：
+1. 将你的 SVG 文件放入 `svg` 目录（默认使用重庆大学中文校徽）
+2. 运行主程序：
 
 ```bash
-python 复数域.py
+python Fourier.py
 ```
 
-## 🎮 控制
+3. 观看动态生成的傅里叶变换图像
+
+## 🎮 操作说明
 
 - **ESC 键**：退出程序
 - **鼠标右键**：退出程序
+- 观察绿色轨迹显示傅里叶变换的绘制过程
 
 ## 🔧 参数说明
+
+可以在 `Fourier.py` 的 `__main__` 部分调整以下参数：
+
+```python
+# 进一步增加点的数量以获得更精细的轮廓
+svg = Svg2points('CQU', 500, 1, show=False)
+
+# 大幅增加向量数量和积分精度以提高还原度，启用缓存和并行计算
+coeff = CalCoeff(svg, 800, vec_num=500, int_num=2000, use_cache=True, workers=None)
+
+# 进一步放慢周期时间以便更清晰地观察
+Visualization(20, coefficient=coeff, times=2)
+```
 
 | 参数 | 说明 | 建议值 |
 |------|------|--------|
@@ -77,7 +65,7 @@ python 复数域.py
 | `vec_num` | 傅里叶级数的向量数量 | 300-1000 |
 | `int_num` | 积分计算的精度 | 1000-5000 |
 | `use_cache` | 是否使用缓存 | True |
-| `workers` | 并行计算的线程数 | None (自动) |
+| `workers` | 并行计算的进程数 | None (自动) |
 
 ## 📊 工作原理
 
@@ -93,22 +81,19 @@ $$f(t) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left[ a_n \cos(nt) + b_n \sin(nt) 
 ## 📁 项目结构
 
 ```
-Fourier_series_drawing/
-├── 复数域.py         # 主程序
-├── svg/              # SVG 文件目录
-├── points/           # 提取的点数据
-├── json/             # 傅里叶系数 JSON 文件
-├── cache/            # 计算缓存
-└── README.md         # 项目说明
+项目目录/
+├── Fourier.py       # 主程序文件
+├── svg/             # SVG 文件目录
+├── points/          # 提取的点数据
+├── json/            # 傅里叶系数 JSON 文件
+├── cache/           # 计算缓存
+└── README.md        # 项目说明
 ```
 
-## 🤝 贡献
+## 💻 系统要求
 
-欢迎提交 Pull Request 或创建 Issue！
-
-## 📜 许可证
-
-[MIT License](LICENSE)
+- Python 3.6+
+- 支持 pygame 的操作系统（Windows/macOS/Linux）
 
 ## 🙏 致谢
 
